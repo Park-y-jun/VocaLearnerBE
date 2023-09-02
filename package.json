@@ -1,0 +1,22 @@
+{
+  "name": "vocalearnerbe",
+  "version": "1.0.0",
+  "description": "헬로 월드",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Park-y-jun/VocaLearnerBE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Park-y-jun/VocaLearnerBE/issues"
+  },
+  "homepage": "https://github.com/Park-y-jun/VocaLearnerBE#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
