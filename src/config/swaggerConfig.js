@@ -36,7 +36,8 @@ const options = {
     // "./src/errors/*.js",
     // "./src/controllers/article/*.js",
     // "./src/controllers/plant/*.js",
-    // "./migrations/*.js",
+    "./src/migrations/*.js",
+    "./src/controllers/*.js",
   ],
 };
 
