@@ -23,6 +23,10 @@ const options = {
         name: "list",
         description: "About Vocabulary Lists",
       },
+      {
+        name: "word",
+        description: "About Vocabulary Words",
+      },
     ],
   },
   // security: [
