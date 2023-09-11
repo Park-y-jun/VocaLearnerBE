@@ -5,6 +5,9 @@
  *     words:
  *       type: object
  *       properties:
+ *         word_key:
+ *           type: number
+ *           description: words 테이블의 key 입니다.
  *         list_key:
  *           type: number
  *           description: lists 테이블의 외래키 입니다.
@@ -20,6 +23,7 @@
  *             - 쉬움
  *             - 보통
  *             - 어려움
+ *           default: 보통
  *           description: 단어의 난이도 입니다. 
  *         created_at:
  *           type: string
@@ -34,6 +38,7 @@
  *           format: date
  *           description: 단어 정보가 삭제된 날짜입니다.
  *       example:
+ *         word_key: 3
  *         list_key: 1
  *         list_question: "覚える"
  *         list_answer: "おぼ-える"
