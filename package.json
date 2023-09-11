@@ -18,6 +18,9 @@
   "homepage": "https://github.com/Park-y-jun/VocaLearnerBE#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "mysql2": "^3.6.1",
+    "sequelize": "^6.33.0",
+    "sequelize-cli": "^6.6.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   }
