@@ -1,3 +1,6 @@
+const express = require('express')
+
+const router = express.Router()
 /**
  * @swagger
  * /api/v1/sign-up:
@@ -23,6 +26,11 @@
  *       400:
  *         description: BAD_REQUEST.
  */
+router.post("/api/v1/sign-up", async (req, res) => {
+  const {id, password} = req.body
+  
+});
+
 
 /**
  * @swagger
@@ -49,3 +57,4 @@
  *       400:
  *         description: BAD_REQUEST.
  */
+module.exports = router;

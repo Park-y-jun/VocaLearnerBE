@@ -1,5 +1,7 @@
 const express = require('express')
 const swaggerUi = require('swagger-ui-express')
+const morgan = require('morgan')
+const cors = require('cors')
 
 const specs = require('./swagger/swaggerConfig')
 
@@ -22,6 +24,8 @@ class App {
   middlewareConfig() {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(morgan('combined'))
+    
   }
 
   routerConfig() {
