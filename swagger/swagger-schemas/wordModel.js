@@ -24,7 +24,7 @@
  *             - 보통
  *             - 어려움
  *           default: 보통
- *           description: 단어의 난이도 입니다. 
+ *           description: 단어의 난이도 입니다.
  *         created_at:
  *           type: string
  *           format: date

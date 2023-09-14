@@ -32,5 +32,6 @@
  *         password: password123
  *         created_at: "2023-09-05"
  *         updated_at: "2023-09-05"
- *         deleted_at: null      
+ *         deleted_at: null
  */
+

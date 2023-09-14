@@ -1,10 +1,11 @@
 {
-  "name": "vocalearnerbe",
+  "name": "vocalearnerBE",
   "version": "1.0.0",
-  "description": "헬로 월드",
+  "description": "vocalearner-server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon src/test/test.js",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,13 @@
   },
   "homepage": "https://github.com/Park-y-jun/VocaLearnerBE#readme",
   "dependencies": {
+    "@prisma/client": "^5.2.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mysql2": "^3.6.1",
-    "sequelize": "^6.33.0",
-    "sequelize-cli": "^6.6.1",
+    "prisma": "^5.2.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^9.0.0"
   }
 }

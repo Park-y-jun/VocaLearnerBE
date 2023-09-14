@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  key       Int      @id @default(autoincrement())
+  id        String   @unique
+  password  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  lists     List[]
+}
+
+model List {
+  key       Int      @id @default(autoincrement())
+  user      User     @relation(fields: [user_key], references: [key], onDelete: Cascade)
+  user_key  Int
+  name      String   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  lists     Word[]
+}
+
+model Word {
+  key           Int      @id @default(autoincrement())
+  list          List     @relation(fields: [list_key], references: [key], onDelete: Cascade)
+  list_key      Int
+  list_question String
+  list_answer   String
+  difficulty Role       @default(NORMAL)   
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  deletedAt DateTime?
+}
+
+enum Role {
+  EASY
+  NORMAL
+  HARD
+}
