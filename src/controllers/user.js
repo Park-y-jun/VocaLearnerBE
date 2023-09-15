@@ -1,6 +1,12 @@
 const express = require('express')
+const { PrismaClient } = require("@prisma/client");
 
+//const errorHandler = require('../middlewares/errorHandler')
+const validateRequestBody = require('../middlewares/validateMiddleware')
+
+const prisma = new PrismaClient();
 const router = express.Router()
+
 /**
  * @swagger
  * /api/v1/sign-up:
@@ -26,9 +32,19 @@ const router = express.Router()
  *       400:
  *         description: BAD_REQUEST.
  */
-router.post("/api/v1/sign-up", async (req, res) => {
-  const {id, password} = req.body
-  
+router.post("/sign-up", validateRequestBody(["id", "password"]), async (req, res, next) => {
+  try {
+    const { id, password } = req.body;
+    await prisma.user.create({
+      data: {
+        id,
+        password
+      }
+    })
+    res.status(201).json({ message: "cool!" })
+  } catch (error) {
+    next(error)
+  }
 });
 
 
@@ -57,4 +73,5 @@ router.post("/api/v1/sign-up", async (req, res) => {
  *       400:
  *         description: BAD_REQUEST.
  */
+
 module.exports = router;
