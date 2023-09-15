@@ -39,10 +39,9 @@ class NotFound extends HttpError {
   }
 }
 
-// 서버 측에서 요청을 처리하는 동안 오류가 발생했음을 나타냅니다
-class InternalServerError extends HttpError {
-  constructor(data) {
-    super("INTERNAL_SERVER_ERROR", 500);
-    this.data = data;
-  }
-}
+module.exports = {
+  BadRequest,
+  Unauthorized,
+  Forbidden,
+  NotFound,
+};
