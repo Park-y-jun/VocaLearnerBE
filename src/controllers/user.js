@@ -1,11 +1,17 @@
 const express = require('express')
-const { PrismaClient } = require("@prisma/client");
 
-//const errorHandler = require('../middlewares/errorHandler')
+const UserService = require('../services/userService')
 const validateRequestBody = require('../middlewares/validateMiddleware')
+const {
+  BadRequest,
+  Unauthorized,
+  Forbidden,
+  NotFound,
+} = require("../errors/index");
 
-const prisma = new PrismaClient();
 const router = express.Router()
+const userService = new UserService()
+
 
 /**
  * @swagger
@@ -35,15 +41,12 @@ const router = express.Router()
 router.post("/sign-up", validateRequestBody(["id", "password"]), async (req, res, next) => {
   try {
     const { id, password } = req.body;
-    await prisma.user.create({
-      data: {
-        id,
-        password
-      }
-    })
-    res.status(201).json({ message: "cool!" })
+
+    await userService.createUserWithHash(id, password);
+    res.status(201).json({ message: "cool!" });
   } catch (error) {
-    next(error)
+   
+     next(error)
   }
 });
 

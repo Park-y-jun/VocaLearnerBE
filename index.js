@@ -3,6 +3,7 @@ const swaggerUi = require('swagger-ui-express')
 const morgan = require('morgan')
 
 const specs = require('./swagger/swaggerConfig')
+//const errorHandler = require('./src/middlewares/errorHandler')
 
 class App {
   constructor() {
@@ -24,6 +25,7 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(morgan('combined'))
+    //this.app.use(errorHandler);
   }
 
   routerConfig() {
