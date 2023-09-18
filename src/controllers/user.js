@@ -2,16 +2,10 @@ const express = require('express')
 
 const UserService = require('../services/userService')
 const validateRequestBody = require('../middlewares/validateMiddleware')
-const {
-  BadRequest,
-  Unauthorized,
-  Forbidden,
-  NotFound,
-} = require("../errors/index");
+const { BadRequest, Unauthorized, Forbidden, NotFound,} = require("../errors/index");
 
 const router = express.Router()
 const userService = new UserService()
-
 
 /**
  * @swagger
@@ -40,16 +34,16 @@ const userService = new UserService()
  */
 router.post("/sign-up", validateRequestBody(["id", "password"]), async (req, res, next) => {
   try {
-    const { id, password } = req.body;
 
+    const { id, password } = req.body;
     await userService.createUserWithHash(id, password);
+
     res.status(201).json({ message: "cool!" });
+
   } catch (error) {
-   
      next(error)
   }
 });
-
 
 /**
  * @swagger
@@ -76,5 +70,18 @@ router.post("/sign-up", validateRequestBody(["id", "password"]), async (req, res
  *       400:
  *         description: BAD_REQUEST.
  */
+
+router.post("/sign-in", validateRequestBody(["id", "password"]), async (req, res, next) => {
+  try {
+
+    const { id, password } = req.body;
+    await userService.confirmUserLogin(id, password);
+
+    res.status(201).json({ message: "cool!" });
+
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

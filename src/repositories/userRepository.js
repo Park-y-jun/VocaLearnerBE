@@ -16,6 +16,17 @@ class UserRepository {
       },
     });
   }
+
+  async findUserById(id) {
+   const user = await this.db.user.findUnique({
+      where: {
+        id
+      }
+    })
+
+    return user;
+  }
+
 }
 
 module.exports = UserRepository;

@@ -4,17 +4,11 @@ const validateRequestBody = (properties) => (req, res, next) => {
   const missingProps = properties.filter((prop) => !req.body[prop]);
  
     if (missingProps.length > 0) {
-      throw new BadRequest({ data: "Invalid request" });
+      throw new BadRequest("Invalid request");
     }
-   
+   next()
   }
   
 
-  // if (missingProps.length > 0) {
-  //   throw new BadRequest({ data: "Invalid request" });
-  // } else {
-  //   next()
-  // }
-
-
+  
 module.exports = validateRequestBody

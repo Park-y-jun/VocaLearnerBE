@@ -1,4 +1,5 @@
 const UserRepository = require('../repositories/userRepository')
+const { BadRequest, Unauthorized, Forbidden, NotFound} = require("../errors/index");
 
 const bcrypt = require("bcrypt");
 
@@ -22,11 +23,18 @@ class UserService {
     }
   }
 
-  confirmUserLogin(id, password) {
-    // 1. 요청받은 id가 db에 있는지 조회
+  async confirmUserLogin(id, password) {
+  
+    const userCheck = await this.repository.findUserById(id)
+    if (userCheck === null) {
+      throw new Unauthorized("Your action is invalid");
+    } 
 
-    // 2. 요청받은 비밀번호와 db 비밀번호비교 이때 hash compare
-   }
+    const passwordCheck = bcrypt.compareSync(password, userCheck.password)
+    if (passwordCheck === false) {
+      throw new Unauthorized("Your action is invalid");
+    }
+  }  
 }
 
 module.exports = UserService;
