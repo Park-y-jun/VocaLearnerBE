@@ -1,13 +1,11 @@
+const express = require("express");
 
+const ListService = require('../services/listService')
+const validateRequestBody = require("../middlewares/validateMiddleware");
+const { BadRequest ,Unauthorized ,Forbidden ,NotFound,} = require("../errors/index");
 
-
-
-
-
-
-
-
-
+const router = express.Router();
+const listService = new ListService();
 /**
  * @swagger
  * /api/v1/list
@@ -41,14 +39,25 @@
  *                         format: date
  *             example:
  *               data:
- *                 - list_name: 일본어 동사 단어장
- *                   created_at: "2023-05-14T12:34:56Z"
  *                 - list_name: 일본어 경여 단어장
  *                   created_at: "2023-05-14T12:34:56Z"
  *       400:
  *         description: BAD_REQUEST.
  */
 
+  router.post("/", validateRequestBody(["user_key", "name"]), async (req, res, next) => {
+    try {
+      const { user_key, name } = req.body;
+
+      await listService.createList(user_key, name);
+
+      res.status(201).json({ message: "cool!" });
+    } catch(err) {
+      next(err)
+    } 
+
+    }
+  );
 
 /**
  * @swagger
@@ -83,10 +92,22 @@
  *                         format: date
  *             example:
  *               data:
- *                 - list_name: 일본어 동사 단어장
- *                   created_at: "2023-05-14T12:34:56Z"
  *                 - list_name: 일본어 경여 단어장
  *                   created_at: "2023-05-14T12:34:56Z"
  *       400:
  *         description: BAD_REQUEST.
  */
+  router.get("/user_key/:user_key", async (req, res, next) => {
+    try {
+      const { user_key } = req.params
+      await listService.userHasList(user_key);
+
+      const lists = await listService.getList(user_key);
+
+      res.status(200).json({data: lists});
+    } catch (err) {
+      next(err);
+    }
+  });
+
+module.exports = router;
