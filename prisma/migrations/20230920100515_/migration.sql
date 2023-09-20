@@ -27,13 +27,14 @@ CREATE TABLE `List` (
 CREATE TABLE `Word` (
     `key` INTEGER NOT NULL AUTO_INCREMENT,
     `list_key` INTEGER NOT NULL,
-    `list_question` VARCHAR(191) NOT NULL,
-    `list_answer` VARCHAR(191) NOT NULL,
+    `question` VARCHAR(191) NOT NULL,
+    `answer` VARCHAR(191) NOT NULL,
     `difficulty` ENUM('EASY', 'NORMAL', 'HARD') NOT NULL DEFAULT 'NORMAL',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `deletedAt` DATETIME(3) NULL,
 
+    INDEX `Word_list_key_idx`(`list_key`),
     PRIMARY KEY (`key`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
