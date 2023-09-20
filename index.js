@@ -33,6 +33,7 @@ class App {
     this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
     this.app.use("/api/v1/user", require('./src/controllers/user'));
     this.app.use("/api/v1/list", require("./src/controllers/list"));
+    this.app.use("/api/v1/word", require("./src/controllers/word"));
   }
 
   errorHandleConfig() {

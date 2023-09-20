@@ -1,9 +1,18 @@
+const express = require("express");
+
+const WordService = require("../services/wordService");
+const validateRequestBody = require("../middlewares/validateMiddleware");
+const { BadRequest, Unauthorized, Forbidden, NotFound} = require("../errors/index");
+
+const router = express.Router();
+const wordService = new WordService();
+
 /**
  * @swagger
- * /api/v1/user/{user_key}/list/{list_key}:
+ * /api/v1/word:
  *   post:
  *     summary: 단어장에 새로운 단어 추가
- *     tags: 
+ *     tags:
  *       - word
  *     parameters:
  *       - name: user_key
@@ -33,7 +42,7 @@
  *                 example: おぼ-える
  *               difficulty:
  *                 type: string
- *                 example: 보통 
+ *                 example: 보통
  *     responses:
  *       200:
  *         description: 회원가입 완료.
@@ -41,9 +50,25 @@
  *         description: BAD_REQUEST.
  */
 
+  router.post(
+    "/",
+    validateRequestBody([ "list_key", "question","answer"]),
+      async (req, res, next) => {
+        try {
+          
+          const { list_key, question, answer } = req.body;
+          await wordService.pushWord(list_key, question, answer);
+          res.status(201).json({ message: "cool!" });
+
+        } catch(err) {
+          next(err)
+        }  
+      }
+    )
+
 /**
  * @swagger
- * /api/v1/user/{user_key}/list/{list_key}:
+ * /api/v1/word/user/{user_key}/list/{list_key}:
  *   get:
  *     summary: 단어장에서 단어 조회
  *     tags:
@@ -89,9 +114,22 @@
  *         description: BAD_REQUEST.
  */
 
+  router.get("/list/:list_key", async(req, res, next) => {
+    try {
+
+      const { list_key } = req.params;
+      const words =  await wordService.loadWords(list_key);
+      res.status(200).json({ data: words });
+
+    } catch(error) {
+      next(error)
+    }
+    
+
+  });
 /**
  * @swagger
- * /api/v1/user/{user_key}/list/{list_key}/word/{word_key}:
+ * /api/v1/word/difficulty/user/{user_key}/list/{list_key}:
  *   patch:
  *     summary: 단어의 난이도 변경
  *     tags:
@@ -132,3 +170,19 @@
  *         description: BAD_REQUEST.
  */
 
+  router.patch("/", validateRequestBody(["difficulty"]), async (req, res, next) => {
+
+      try {
+        const { list_key, word_number } = req.query;
+        const { difficulty } = req.body
+        
+        await wordService.modifyDifficulty(list_key, word_number, difficulty);
+        res.status(200).json({ message: "cool!" });
+
+      } catch(err) {
+        next(err)
+      }
+    }
+  )
+  
+module.exports = router;

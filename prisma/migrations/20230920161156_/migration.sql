@@ -25,7 +25,7 @@ CREATE TABLE `List` (
 
 -- CreateTable
 CREATE TABLE `Word` (
-    `key` INTEGER NOT NULL AUTO_INCREMENT,
+    `word_number` INTEGER NOT NULL AUTO_INCREMENT,
     `list_key` INTEGER NOT NULL,
     `question` VARCHAR(191) NOT NULL,
     `answer` VARCHAR(191) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `Word` (
     `deletedAt` DATETIME(3) NULL,
 
     INDEX `Word_list_key_idx`(`list_key`),
-    PRIMARY KEY (`key`)
+    PRIMARY KEY (`word_number`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey

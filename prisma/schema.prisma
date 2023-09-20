@@ -32,7 +32,7 @@ model List {
 }
 
 model Word {
-  key           Int      @id @default(autoincrement())
+  word_number           Int      @id @default(autoincrement())
   list          List     @relation(fields: [list_key], references: [key], onDelete: Cascade)
   list_key      Int
   question String

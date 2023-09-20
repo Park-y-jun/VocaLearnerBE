@@ -6,6 +6,7 @@ const { BadRequest ,Unauthorized ,Forbidden ,NotFound,} = require("../errors/ind
 
 const router = express.Router();
 const listService = new ListService();
+
 /**
  * @swagger
  * /api/v1/list
