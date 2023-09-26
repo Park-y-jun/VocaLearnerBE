@@ -10,6 +10,10 @@ class WordService {
     await this.repository.pushWord(list_key, question, answer);
   }
 
+  async executeAlgorithm(list_key) {
+    await this.repository.executeAlgorithm(list_key);
+  }
+
   async loadWords(list_key) {
     const words = await this.repository.loadWords(list_key);
 

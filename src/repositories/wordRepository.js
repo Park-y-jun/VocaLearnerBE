@@ -28,7 +28,6 @@ class WordRepository {
   }
 
   async modifyDifficulty(list_key, word_number, difficulty) {
-
     await this.db.word.update({
       where: {
         list_key: parseInt(list_key),
@@ -38,6 +37,84 @@ class WordRepository {
         difficulty,
       },
     });
+  }
+
+  async executeAlgorithm(list_key) {
+
+   const words = await this.db.word.findMany({
+     where: {
+       list_key: parseInt(list_key),
+     },
+   });
+
+   let nextReviewDate = new Date();
+
+   for (const word of words) {
+    switch (word.difficulty) {
+      case "EASY":
+        const easyReviewDate = nextReviewDate.setDate(nextReviewDate.getDate() + 3);
+
+        await this.db.word.updateMany({
+          where: {
+            difficulty: {
+              contains: "EASY",
+            },
+          },
+          data: {
+            nextReviewDate: easyReviewDate,
+          },
+        });
+
+        break;
+
+      case "NORMAL":
+        const normalReviewDate = nextReviewDate.setDate(nextReviewDate.getDate() + 2);
+
+        await this.db.word.updateMany({
+          where: {
+            difficulty: {
+              contains: "NORMAL",
+            },
+          },
+          data: {
+            nextReviewDate: normalReviewDate,
+          },
+        });
+
+        break;
+
+      case "HARD":
+        const hardReviewDate = nextReviewDate.setDate(nextReviewDate.getDate() + 1);
+
+        await this.db.word.updateMany({
+          where: {
+            difficulty: {
+              contains: "HARD",
+            },
+          },
+          data: {
+            nextReviewDate: hardReviewDate,
+          },
+        });
+
+        break;
+
+      case "INITIAL":
+
+        const initialReviewDate = nextReviewDate.setDate( nextReviewDate.getDate() + 1);
+
+        await this.db.word.updateMany({
+          where: {
+            difficulty:  "INITIAL",
+          },
+          data: {
+            nextReviewDate: initialReviewDate,
+          },
+        });
+
+        break;
+    }
+   }
   }
 }
 

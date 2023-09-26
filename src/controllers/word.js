@@ -118,7 +118,10 @@ const wordService = new WordService();
     try {
 
       const { list_key } = req.params;
+
+      await wordService.executeAlgorithm(list_key);
       const words =  await wordService.loadWords(list_key);
+      
       res.status(200).json({ data: words });
 
     } catch(error) {

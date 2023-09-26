@@ -29,10 +29,11 @@ CREATE TABLE `Word` (
     `list_key` INTEGER NOT NULL,
     `question` VARCHAR(191) NOT NULL,
     `answer` VARCHAR(191) NOT NULL,
-    `difficulty` ENUM('EASY', 'NORMAL', 'HARD') NOT NULL DEFAULT 'NORMAL',
+    `difficulty` ENUM('INITIAL', 'EASY', 'NORMAL', 'HARD') NOT NULL DEFAULT 'INITIAL',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `deletedAt` DATETIME(3) NULL,
+    `nextReviewDate` DATETIME(3) NULL,
 
     INDEX `Word_list_key_idx`(`list_key`),
     PRIMARY KEY (`word_number`)

@@ -37,15 +37,17 @@ model Word {
   list_key      Int
   question String
   answer   String
-  difficulty Role       @default(NORMAL)   
+  difficulty Role       @default(INITIAL)   
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   deletedAt DateTime?
-
+  nextReviewDate DateTime?
+  
   @@index([list_key])
 }
 
 enum Role {
+  INITIAL
   EASY
   NORMAL
   HARD
