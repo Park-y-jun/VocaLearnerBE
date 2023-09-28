@@ -27,8 +27,8 @@ const userService = new UserService()
  *                 type: string
  *                 example: password123
  *     responses:
- *       200:
- *         description: 회원가입 완료.
+ *       201:
+ *         description: Sign-up was successful.
  *       400:
  *         description: BAD_REQUEST.
  */
@@ -38,7 +38,7 @@ router.post("/sign-up", validateRequestBody(["id", "password"]), async (req, res
     const { id, password } = req.body;
     await userService.createUserWithHash(id, password);
 
-    res.status(201).json({ message: "cool!" });
+    res.status(201).json({ message: "Sign-up was successful." });
 
   } catch (error) {
      next(error)
@@ -66,7 +66,7 @@ router.post("/sign-up", validateRequestBody(["id", "password"]), async (req, res
  *                 example: password123
  *     responses:
  *       200:
- *         description: 로그인 완료.
+ *         description: Sign-in was successful.
  *       400:
  *         description: BAD_REQUEST.
  */
@@ -77,7 +77,7 @@ router.post("/sign-in", validateRequestBody(["id", "password"]), async (req, res
     const { id, password } = req.body;
     await userService.confirmUserLogin(id, password);
 
-    res.status(201).json({ message: "cool!" });
+    res.status(201).json({ message: "Sign-in was successful." });
 
   } catch (error) {
     next(error);

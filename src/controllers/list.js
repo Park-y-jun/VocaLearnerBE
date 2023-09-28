@@ -9,42 +9,31 @@ const listService = new ListService();
 
 /**
  * @swagger
- * /api/v1/list
+ * /api/v1/list:
  *   post:
  *     summary: 유저 단어장 만들기
  *     tags:
  *       - list
- *     parameters:
- *       - in: path
- *         name: user_key
- *         schema:
- *           type: number
- *         description: 유저 key
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user_key:
+ *                 type: int
+ *                 example: 2
+ *               name:
+ *                 type: string
+ *                 example: "일본어 단어장"
  *     responses:
- *       200:
- *         description: 모든 게시물 조회 성공.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       list_name:
- *                         type: string
- *                       created_at:
- *                         type: string
- *                         format: date
- *             example:
- *               data:
- *                 - list_name: 일본어 경여 단어장
- *                   created_at: "2023-05-14T12:34:56Z"
+ *       201:
+ *         description: Create list was successful.
  *       400:
  *         description: BAD_REQUEST.
  */
+
 
   router.post("/", validateRequestBody(["user_key", "name"]), async (req, res, next) => {
     try {
@@ -52,7 +41,7 @@ const listService = new ListService();
 
       await listService.createList(user_key, name);
 
-      res.status(201).json({ message: "cool!" });
+      res.status(201).json({ message: "Create list was successful." });
     } catch(err) {
       next(err)
     } 
@@ -86,15 +75,29 @@ const listService = new ListService();
  *                   items:
  *                     type: object
  *                     properties:
- *                       list_name:
+ *                       key:
+ *                         type: int
+ *                       user_key:
+ *                         type: int
+ *                       name:
  *                         type: string
- *                       created_at:
+ *                       createdAt:
  *                         type: string
  *                         format: date
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date 
+ *                       deletedAt:
+ *                         type: string
+ *                         format: date 
  *             example:
  *               data:
- *                 - list_name: 일본어 경여 단어장
- *                   created_at: "2023-05-14T12:34:56Z"
+ *                 - key: 1
+ *                   user_key: 1
+ *                   name: 일본어 경여 단어장
+ *                   createdAt: "2023-09-26T10:51:45.010Z"
+ *                   updatedAt: "2023-09-26T10:51:45.010Z"
+ *                   deletedAt: null
  *       400:
  *         description: BAD_REQUEST.
  */

@@ -15,15 +15,21 @@ const wordService = new WordService();
  *     tags:
  *       - word
  *     parameters:
- *       - name: user_key
+ *       - name: list_key
  *         in: path
- *         description: The ID of the user
+ *         description: The key of the list
  *         required: true
  *         schema:
  *           type: integer
- *       - name: list_key
+ *       - name: question
  *         in: path
- *         description: The ID of the list
+ *         description: word question 
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - name: answer
+ *         in: path
+ *         description: word answer
  *         required: true
  *         schema:
  *           type: integer
@@ -34,18 +40,18 @@ const wordService = new WordService();
  *           schema:
  *             type: object
  *             properties:
- *               list_question:
+ *               list_key:
+ *                 type: int
+ *                 example: 1
+ *               question:
  *                 type: string
  *                 example: 覚える
- *               list_answer:
+ *               answer:
  *                 type: string
  *                 example: おぼ-える
- *               difficulty:
- *                 type: string
- *                 example: 보통
  *     responses:
- *       200:
- *         description: 회원가입 완료.
+ *       201:
+ *         description: Create word was successful.
  *       400:
  *         description: BAD_REQUEST.
  */
@@ -58,7 +64,7 @@ const wordService = new WordService();
           
           const { list_key, question, answer } = req.body;
           await wordService.pushWord(list_key, question, answer);
-          res.status(201).json({ message: "cool!" });
+          res.status(201).json({ message: "Create word was successful." });
 
         } catch(err) {
           next(err)

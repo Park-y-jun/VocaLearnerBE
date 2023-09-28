@@ -30,8 +30,8 @@
  *         user_key: 1
  *         id: user123
  *         password: password123
- *         created_at: "2023-09-05"
- *         updated_at: "2023-09-05"
+ *         created_at: "2023-09-27 09:17:32.201"
+ *         updated_at: "2023-09-27 09:17:32.201"
  *         deleted_at: null
  */
 

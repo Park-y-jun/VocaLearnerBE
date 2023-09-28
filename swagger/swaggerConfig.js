@@ -10,7 +10,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://127.0.0.1/",
+        url: "http://localhost:8080/",
         description: "VocaLearnerBE server",
       },
     ],
@@ -34,15 +34,7 @@ const options = {
   //     BearerAuth: [], // BearerAuth 보안 정의를 사용할 수 있도록 추가
   //   },
   // ],
-  apis: [
-    // "./src/controllers/*.js",
-    // "./src/services/*.js",
-    // "./src/errors/*.js",
-    // "./src/controllers/article/*.js",
-    // "./src/controllers/plant/*.js",
-    "./src/migrations/*.js",
-    "./src/controllers/*.js",
-  ],
+  apis: ["./swagger/swagger-schemas/*.js", "./src/controllers/*.js"],
 };
 
 const specs = swaggerJsdoc(options);
