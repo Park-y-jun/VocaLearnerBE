@@ -74,18 +74,12 @@ const wordService = new WordService();
 
 /**
  * @swagger
- * /api/v1/word/user/{user_key}/list/{list_key}:
+ * /api/v1/word/list/{list_key}:
  *   get:
  *     summary: 단어장에서 단어 조회
  *     tags:
  *       - word
  *     parameters:
- *       - name: user_key
- *         in: path
- *         description: The ID of the user
- *         required: true
- *         schema:
- *           type: integer
  *       - name: list_key
  *         in: path
  *         description: The ID of the list
@@ -94,7 +88,7 @@ const wordService = new WordService();
  *           type: integer
  *     responses:
  *       200:
- *         description: 단어장에서 단어 조회 성공.
+ *         description: Read words successful!.
  *         content:
  *           application/json:
  *             schema:
@@ -113,9 +107,15 @@ const wordService = new WordService();
  *                         type: string
  *             example:
  *               data:
- *                 - list_question: "覚える"
- *                   list_answer: "おぼ-える"
- *                   difficulty: "쉬움"
+ *                 - word_number: 5
+ *                   list_key: 1
+ *                   question: 覚える
+ *                   answer: おぼ-える
+ *                   difficulty: HARD
+ *                   createdAt: 2023-09-26T10:52:17.797Z
+ *                   updatedAt: 2023-09-27T10:52:17.797Z
+ *                   deletedAt: null
+ *                   nextReviewDate: 2023-09-28T10:52:17.797Z
  *       400:
  *         description: BAD_REQUEST.
  */
@@ -135,27 +135,21 @@ const wordService = new WordService();
   });
 /**
  * @swagger
- * /api/v1/word/difficulty/user/{user_key}/list/{list_key}:
+ * /api/v1/word/:
  *   patch:
  *     summary: 단어의 난이도 변경
  *     tags:
  *       - word
  *     parameters:
- *       - name: user_key
- *         in: path
- *         description: The ID of the user
- *         required: true
- *         schema:
- *           type: integer
  *       - name: list_key
- *         in: path
- *         description: The ID of the list
+ *         in: query
+ *         description: The list key for the word.
  *         required: true
  *         schema:
- *           type: integer
- *       - name: word_key
- *         in: path
- *         description: The ID of the word
+ *           type: string
+ *       - name: word_number
+ *         in: query
+ *         description: The number associated with the word.
  *         required: true
  *         schema:
  *           type: integer
@@ -168,10 +162,10 @@ const wordService = new WordService();
  *             properties:
  *               difficulty:
  *                 type: string
- *                 example: 쉬움
+ *                 example: NORMAL
  *     responses:
  *       200:
- *         description: 난이도 수정 완료.
+ *         description: Update Difficulty!.
  *       400:
  *         description: BAD_REQUEST.
  */
@@ -183,7 +177,7 @@ const wordService = new WordService();
         const { difficulty } = req.body
         
         await wordService.modifyDifficulty(list_key, word_number, difficulty);
-        res.status(200).json({ message: "cool!" });
+        res.status(200).json({ message: "Update Difficulty!" });
 
       } catch(err) {
         next(err)
