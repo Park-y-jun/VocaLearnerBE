@@ -6,6 +6,7 @@ const morgan = require("morgan");
 
 const specs = require("./swagger/swaggerConfig");
 const errorHandler = require("./src/middlewares/errorHandler");
+const verifyToken = require("./src/middlewares/verifyToken")
 
 class App {
   constructor() {
@@ -33,6 +34,7 @@ class App {
   routerConfig() {
     this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
     this.app.use("/api/v1/user", require("./src/controllers/user"));
+    this.app.use(verifyToken)
     this.app.use("/api/v1/list", require("./src/controllers/list"));
     this.app.use("/api/v1/word", require("./src/controllers/word"));
   }

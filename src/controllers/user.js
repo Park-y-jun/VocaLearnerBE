@@ -76,8 +76,9 @@ router.post("/sign-in", validateRequestBody(["id", "password"]), async (req, res
 
     const { id, password } = req.body;
     await userService.confirmUserLogin(id, password);
-
-    res.status(201).json({ message: "Sign-in was successful." });
+    const passedUser = await userService.passedUser(id);
+    
+    res.status(201).json({ data: passedUser });
 
   } catch (error) {
     next(error);
