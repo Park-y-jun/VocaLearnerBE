@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const morgan = require("morgan");
+const cors = require('cors')
 
 const specs = require("./swagger/swaggerConfig");
 const errorHandler = require("./src/middlewares/errorHandler");
@@ -28,6 +29,7 @@ class App {
   middlewareConfig() {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(cors({ origin: process.env.FRONTEND_URL }));
     this.app.use(morgan("combined"));
   }
 
