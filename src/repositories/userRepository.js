@@ -27,6 +27,13 @@ class UserRepository {
     return user;
   }
 
+  async throwToken(token) {
+    await this.db.loggedOutToken.create({
+      data: {
+        token: token,
+      },
+    });
+  }
 }
 
 module.exports = UserRepository;

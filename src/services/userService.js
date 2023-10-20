@@ -43,10 +43,18 @@ class UserService {
       issuer: "VocaLearnerBE",
     };
 
-    const accessToken = jwt.sign(user, process.env.JWT_SECRET, tokenOptions);
+    const accessToken = jwt.sign(
+      { key: user.key },
+      process.env.JWT_SECRET,
+      tokenOptions
+    );
     user.accessToken = accessToken;
 
     return user;
+  }
+
+  async throwToken(token) {
+    await this.repository.throwToken(token);
   }
 }
 

@@ -1,10 +1,8 @@
 const express = require('express')
-
+const router = express.Router();
 const UserService = require('../services/userService')
 const validateRequestBody = require('../middlewares/validateMiddleware')
 const { BadRequest, Unauthorized, Forbidden, NotFound,} = require("../errors/index");
-
-const router = express.Router()
 const userService = new UserService()
 
 /**
@@ -84,5 +82,19 @@ router.post("/sign-in", validateRequestBody(["id", "password"]), async (req, res
     next(error);
   }
 });
+
+router.post(
+  "/logout",
+  validateRequestBody(["token"]), async(req, res, next) => {
+    try {
+      const { token } = req.body;
+      await userService.throwToken(token) 
+
+      res.status(201).json({ message: "Log-out was successful." });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;

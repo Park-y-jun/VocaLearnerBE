@@ -13,7 +13,6 @@ class App {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
-
     this.middlewareConfig();
     this.startSever();
     this.routerConfig();

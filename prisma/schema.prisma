@@ -52,3 +52,7 @@ enum Role {
   NORMAL
   HARD
 }
+
+model LoggedOutToken {
+  token String @id
+}
