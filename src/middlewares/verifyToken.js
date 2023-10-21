@@ -9,14 +9,14 @@ const verifyToken = async (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      throw new Unauthorized("invalid_credentials");
+      next(new Unauthorized("invalid_credentials"));
     }
 
     const [bearer, token] = authorization.split(" ");
     const bearerSet = new Set(["Bearer", "bearer", "BEARER"]);
 
     if (!bearerSet.has(bearer)) {
-      throw new Unauthorized("invalid_credentials");
+      next(new Unauthorized("invalid_credentials"));
     }
 
     const isLoggedOut = await prisma.loggedOutToken.findUnique({
@@ -26,7 +26,7 @@ const verifyToken = async (req, res, next) => {
     });
 
     if (isLoggedOut) {
-      throw new Unauthorized("Token Expired");
+      next(new Unauthorized("Token Expired"));
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -35,11 +35,12 @@ const verifyToken = async (req, res, next) => {
     next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      throw new Unauthorized("Token Expired");
+      next(new Unauthorized("Token Expired"));
+    } else {
+      next(new Unauthorized("invalid_credentials"));
     }
-
-    throw new Unauthorized("invalid_credentials");
   }
+
 };
 
 module.exports = verifyToken;
