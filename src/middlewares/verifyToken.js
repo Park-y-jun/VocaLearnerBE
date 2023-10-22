@@ -9,14 +9,14 @@ const verifyToken = async (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      next(new Unauthorized("invalid_credentials"));
+      next(new Unauthorized("invalid_authorization"));
     }
 
     const [bearer, token] = authorization.split(" ");
     const bearerSet = new Set(["Bearer", "bearer", "BEARER"]);
 
     if (!bearerSet.has(bearer)) {
-      next(new Unauthorized("invalid_credentials"));
+      next(new Unauthorized("invalid_bearer"));
     }
 
     const isLoggedOut = await prisma.loggedOutToken.findUnique({
@@ -26,7 +26,7 @@ const verifyToken = async (req, res, next) => {
     });
 
     if (isLoggedOut) {
-      next(new Unauthorized("Token Expired"));
+      next(new Unauthorized("Token LoggedOut"));
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

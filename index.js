@@ -18,7 +18,7 @@ class App {
     this.startSever();
     this.routerConfig();
     this.errorHandleConfig();
-    //this.cronHandleConfig();
+    this.cronHandleConfig();
   }
 
   startSever() {
