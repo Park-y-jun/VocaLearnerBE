@@ -19,15 +19,15 @@ const verifyToken = async (req, res, next) => {
       next(new Unauthorized("invalid_bearer"));
     }
 
-    const isLoggedOut = await prisma.loggedOutToken.findUnique({
-      where: {
-        token: token,
-      },
-    });
+    // const isLoggedOut = await prisma.loggedOutToken.findUnique({
+    //   where: {
+    //     token: token,
+    //   },
+    // });
 
-    if (isLoggedOut) {
-      next(new Unauthorized("Token LoggedOut"));
-    }
+    // if (isLoggedOut) {
+    //   next(new Unauthorized("Token LoggedOut"));
+    // }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
