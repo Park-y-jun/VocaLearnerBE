@@ -15,10 +15,10 @@ class App {
     this.app = express();
     this.port = process.env.PORT;
     this.middlewareConfig();
-    this.cronHandleConfig();
     this.startSever();
     this.routerConfig();
     this.errorHandleConfig();
+    this.cronHandleConfig();
   }
 
   startSever() {
