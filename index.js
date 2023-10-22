@@ -8,7 +8,7 @@ const cors = require('cors')
 const specs = require("./swagger/swaggerConfig");
 const errorHandler = require("./src/middlewares/errorHandler");
 const verifyToken = require("./src/middlewares/verifyToken")
-//const cleanUpLoggedOutToken = require("./src/workers/loggedOutToken")
+const cleanUpLoggedOutToken = require("./src/workers/loggedOutToken")
 
 class App {
   constructor() {
@@ -18,7 +18,7 @@ class App {
     this.startSever();
     this.routerConfig();
     this.errorHandleConfig();
-    //this.cronHandleConfig();
+    this.cronHandleConfig();
   }
 
   startSever() {
@@ -46,9 +46,9 @@ class App {
     this.app.use(errorHandler);
   }
 
-  // cronHandleConfig() {
-  //   this.app.use(cleanUpLoggedOutToken);
-  // }
+  cronHandleConfig() {
+    this.app.use(cleanUpLoggedOutToken);
+  }
 }
 
 new App();
