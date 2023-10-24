@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { BadRequest, Unauthorized, Forbidden, NotFound } = require("../errors");
-const { PrismaClient } = require("@prisma/client");
+// const { PrismaClient } = require("@prisma/client");
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 const verifyToken = async (req, res, next) => {
   try {
@@ -22,15 +22,15 @@ const verifyToken = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
 
-    const isLoggedOut = await prisma.loggedOutToken.findUnique({
-      where: {
-        token: token,
-      },
-    });
+    // const isLoggedOut = await prisma.loggedOutToken.findUnique({
+    //   where: {
+    //     token: token,
+    //   },
+    // });
 
-    if (isLoggedOut) {
-      next(new Unauthorized("Token LoggedOut"));
-    }
+    // if (isLoggedOut) {
+    //   next(new Unauthorized("Token LoggedOut"));
+    // }
 
     next();
   } catch (error) {
