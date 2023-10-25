@@ -8,7 +8,6 @@ const cors = require('cors')
 const specs = require("./swagger/swaggerConfig");
 const errorHandler = require("./src/middlewares/errorHandler");
 const verifyToken = require("./src/middlewares/verifyToken")
-//const cleanUpLoggedOutToken = require("./src/workers/loggedOutToken")
 
 class App {
   constructor() {
@@ -18,7 +17,6 @@ class App {
     this.startSever();
     this.routerConfig();
     this.errorHandleConfig();
-    //this.cronHandleConfig();
   }
 
   startSever() {
@@ -30,7 +28,9 @@ class App {
   middlewareConfig() {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
-    this.app.use(cors({ origin: process.env.FRONTEND_URL }));
+    this.app.use(
+      cors({ origin: [process.env.FRONTEND_URL, process.env.APP_URL] })
+    );
     this.app.use(morgan("combined"));
   }
 
@@ -46,9 +46,6 @@ class App {
     this.app.use(errorHandler);
   }
 
-  // cronHandleConfig() {
-  //   this.app.use(cleanUpLoggedOutToken);
-  // }
 }
 
 new App();
