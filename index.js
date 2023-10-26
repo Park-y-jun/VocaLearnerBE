@@ -29,7 +29,13 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(
-      cors({ origin: [process.env.FRONTEND_URL, process.env.APP_URL] })
+      cors({
+        origin: [
+          process.env.FRONTEND_URL,
+          process.env.APP_URL,
+          process.env.DEV_URL,
+        ],
+      })
     );
     this.app.use(morgan("combined"));
   }

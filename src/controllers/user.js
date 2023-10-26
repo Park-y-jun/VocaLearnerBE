@@ -43,6 +43,7 @@ router.post("/sign-up", validateRequestBody(["id", "password"]), async (req, res
   }
 });
 
+
 /**
  * @swagger
  * /api/v1/sign-in:
@@ -68,6 +69,7 @@ router.post("/sign-up", validateRequestBody(["id", "password"]), async (req, res
  *       400:
  *         description: BAD_REQUEST.
  */
+
 
 router.post("/sign-in", validateRequestBody(["id", "password"]), async (req, res, next) => {
   try {

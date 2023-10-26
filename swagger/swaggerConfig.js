@@ -10,7 +10,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost/",
+        url: "http://localhost:8080/",
         description: "VocaLearnerBE server",
       },
     ],
@@ -29,11 +29,6 @@ const options = {
       },
     ],
   },
-  // security: [
-  //   {
-  //     BearerAuth: [], // BearerAuth 보안 정의를 사용할 수 있도록 추가
-  //   },
-  // ],
   apis: ["./swagger/swagger-schemas/*.js", "./src/controllers/*.js"],
 };
 
