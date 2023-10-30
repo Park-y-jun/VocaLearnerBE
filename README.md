@@ -73,8 +73,13 @@ DEV_URL=http://~
 
 7.  prisma 연결
 - 해당 프로젝트는 orm의 종류 중 하나인 prisma를 사용함으로  [prisma 스케마 작성법](https://www.prisma.io/docs/concepts/components/prisma-schema)을 참고해서 prisma을 연결합니다.
+
+8. 프로젝트 실행
+```
+  $ npm start
+```
   
-8. API 테스트
+9.  API 테스트
 - 설치가 완료된 후  API 테스트를 진행합니다. API 문서를 참고하여 각 API의 요청과 응답을 테스트합니다.
  - [API 문서](https://honored-hare-249.notion.site/VocaLeaner-API-c722386c83eb4ea582df6697ea32c012?pvs=4)
 
